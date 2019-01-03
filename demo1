@@ -1,0 +1,28 @@
+#!/bin/bash
+sbcl --script << 'EOF' 2> >(sed '/^Backtrace/,$d;/^; /d')
+
+; Refer to the demostuff file for definitions and descriptions.
+
+(load "demostuff")
+
+(defun main ()
+  (gapp demo1
+    (window win demo1 "Four Button Demo" 300 150)
+    (box h outerbox win)
+    (box v mainbox outerbox)
+    (box h buttons mainbox)
+    (box h numbox mainbox)
+    (box v leftbuttons buttons)
+    (box v rightbuttons buttons)
+    (text thenum "Zero" numbox)
+    (button button1 "1" leftbuttons (xtext thenum "One"))
+    (button button2 "2" leftbuttons (xtext thenum "Two"))
+    (button button3 "3" rightbuttons (xtext thenum "Three"))
+    (button button4 "4" rightbuttons (xtext thenum "Four"))
+    (gtk_widget_show_all win))
+  (g_application_run demo1 0 nil)
+  (g_object_unref demo1))
+
+(main)
+
+EOF

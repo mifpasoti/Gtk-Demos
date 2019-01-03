@@ -1,0 +1,30 @@
+#!/bin/bash
+sbcl --script << 'EOF' 2> >(sed '/^Backtrace/,$d;/^; /d')
+
+; Refer to the demostuff file for definitions and descriptions.
+
+(load "demostuff")
+
+(defun main ()
+  (gapp demo3
+    (window win demo3 "Dates Demo" 300 200)
+    (box h outerbox win)
+    (box v mainbox outerbox)
+    (button button1 "1066" mainbox (relabel button1 1066))
+    (button button2 "1415" mainbox (relabel button2 1415))
+    (button button3 "1492" mainbox (relabel button3 1492))
+    (button button4 "1620" mainbox (relabel button4 1620))
+    (button button5 "1776" mainbox (relabel button5 1776))
+    (gtk_widget_show_all win))
+  (g_application_run demo3 0 nil)
+  (g_object_unref demo3))
+
+(defun relabel (button number)
+  (let* ((old (gtk_button_get_label button))
+         (isdigits (<= 0 (- (char-int (aref old 0)) (char-int #\0)) 9))
+         (new (format nil (if isdigits "~@R" "~d") number)))
+    (xlabel button new)))
+
+(main)
+
+EOF

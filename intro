@@ -1,0 +1,27 @@
+These demos demonstrate using Gtk directly from a higher level language.
+None of the demos have any low level code in them.  There is no need for
+any makefiles, C compilers, or any other low level stuff.  There is
+probably no need to install Gtk, because it's probably already used by
+your Linux.
+
+To use a different high level language for these demos, it is of course
+necessary to edit them to change the language.  But they aren't very long
+and that might not take very long.  It's strongly advised to run the
+present demos first, and make some minor changes to them, to see the
+differences, to make sure to understand how they work, before starting to
+change them to a different language.
+
+When a demo script gets invoked, the code gets compiled into memory, with
+a very fast compiler, so there will be no object files, executable binaries,
+etc., unless those are desired.  The only requirement is to download or copy
+and paste the demos and demostuff and make each demo executable with
+"chmod +x demo".  Then run the demos with "./demo1 ; ./demo2 ; ./demo3".
+
+If there are error messages about not finding sbcl, it might be necessary
+to install that, or to add it to the path.  Installing sbcl is easy, usually
+via the Linux distro.
+
+In the rare circumstance that a particular Linux distro doesn't have sbcl,
+you could install a binary version from Sourceforge:
+prdownloads.sourceforge.net/sbcl/sbcl-1.4.14-x86-64-linux-binary.tar.bz2
+or, if desired, you could compile it from sources from sbcl.org.

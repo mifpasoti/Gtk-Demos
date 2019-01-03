@@ -1,0 +1,138 @@
+#|
+This file of "demostuff", used by the demo scripts, loads Gtk
+and defines gapp, window, box, button, text, xtext, and xlabel.
+  gapp      Establishes a Gtk app.  Its arguments are the app name
+            and the code to be executed in the app.
+  window    Establishes a window.  Its arguments are the name of
+            the window object, the name of the app the window is
+            used in, the window title, and the default width and
+            height of the window.
+  box       Establishes a box to place Gtk objects in.  Its three
+            arguments are, first, h or v, for whether the contents
+            of the box are to be organized horizontally or
+            vertically, second, what box to establish, and third,
+            what object the box is to be placed in.
+  button    Establishes a button.  Its arguments are, what button
+            to establish, the initial label text on the button,
+            the object the button is to be placed in, and the code
+            to be executed when the button is pressed.
+  text      Establishes a text display object, which Gtk calls a
+            label.  Its arguments are the name of the text object,
+            the initial text, and what object to place the text
+            object in.
+  xtext     Is a function to display some text in a text object.
+            Its arguments are what text object to display the text
+            in, and what text to display.
+  xlabel    Is a function to update a button label.  Its arguments
+            are the button and the new text.
+|#
+
+(load-shared-object "/usr/lib/x86_64-linux-gnu/libgtk-3.so.0")
+
+; Gtk relies on being able to divide by zero.  To prevent it from
+; being an error, the following line changes the floating point
+; errors to just overflow and invalid, and not division-by-zero.
+; This isn't needed in most programming languages, because most
+; of them default to having it not be an error.
+(sb-int:set-floating-point-modes :traps '(:overflow :invalid))
+
+; The following makes Gtk functions available, giving their names
+; and argument types.
+(loop as gfunc in
+  '((gtk_application_window_new (* t) (* t))
+    (gtk_window_set_title void (* t) c-string)
+    (gtk_window_set_default_size void (* t) int int)
+    (gtk_button_box_new (* t) int)
+    (gtk_container_add void (* t) (* t))
+    (gtk_label_new (* t) c-string)
+    (gtk_label_set_text void (* t) c-string)
+    (gtk_button_set_label void (* t) c-string)
+    (gtk_button_get_label c-string (* t))
+    (gtk_button_new_with_label (* t) c-string)
+    (gtk_widget_destroy (* t) (* t))
+    (gtk_application_new (* t) c-string int)
+    (g_application_run int (* t) int (* t))
+    (g_object_unref void (* t))
+    (g_signal_connect_data long
+      (* t) c-string (function void (* t) (* t)) (* t) (* t) int)
+    (gtk_widget_show_all void (* t)))
+  do (eval (nconc (list 'define-alien-routine (car gfunc) (cadr gfunc))
+                  (loop as argname in '(a b c d e f g h i j k l m)
+                        as argtype in (cddr gfunc)
+                        collect (list argname argtype)))))
+
+; callbackname makes a callback name from an object name.
+; The eval-when makes it usable during macro expansions.
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (defun callbackname (object)
+    (intern (concatenate 'string (symbol-name object) "-CALLBACK"))))
+
+; window establishes a Gtk window object.
+; The arguments are, what window object to establish, what
+; application the window is used in, the window title, and
+; the width and height of the window.
+(defmacro window (awin app title wid ht)
+  (eval `(defparameter ,awin nil))
+  `(progn
+     (setf ,awin (gtk_application_window_new ,app))
+     (gtk_window_set_title ,awin ,title)
+     (gtk_window_set_default_size ,awin ,wid ,ht)))
+
+; box establishes a box object.  The arguments are, whether the box
+; contents are organized horizontally or vertically (h or v), what
+; box is to be established, and what object to place the box in.
+(defmacro box (hv abox placement)
+  (eval `(defparameter ,abox nil))
+  (let ((horizvert (case hv (h 0) (v 1) (t (error
+         "The first argument to box should be h or v, not ~a" hv)))))
+    `(progn
+       (setf ,abox (gtk_button_box_new ,horizvert))
+       (gtk_container_add ,placement ,abox))))
+
+; button establishes a Gtk button object.  The arguments are,
+; the name of the button object, the text shown on the button,
+; what object to place the button in, and the action of the
+; button, which can be any sequence of code.
+(defmacro button (abutton buttonlabel placement &body body)
+  (eval `(defparameter ,abutton nil))
+  (let ((cb (callbackname abutton)))
+    (eval `(sb-alien::define-alien-callback
+             ,cb void ((a (* t)) (u (* t)))
+             ,@body))
+    `(progn
+       (setf ,abutton (gtk_button_new_with_label ,buttonlabel))
+       (g_signal_connect_data ,abutton "clicked" ,cb nil nil 0)
+       (gtk_container_add ,placement ,abutton))))
+
+; text establishes a Gtk "label" object which is actually a text
+; display object.  The arguments are, what text object to
+; establish, the initial text to display, and what object to
+; place this text object in.
+(defmacro text (atext text0 placement)
+  (eval `(defparameter ,atext nil))
+  `(progn
+     (setf ,atext (gtk_label_new ,text0))
+     (gtk_container_add ,placement ,atext)))
+
+; xtext changes the text in a text object.
+(defun xtext (textobject newtext)
+  (gtk_label_set_text textobject newtext))
+
+; xlabel changes the text label on a button.
+(defun xlabel (button newtext)
+  (gtk_button_set_label button newtext))
+
+; gapp establishes a Gtk application.  The arguments are,
+; the name of the application object, and the code to be
+; executed by the application.
+(defmacro gapp (theapp &body body)
+  (eval `(defparameter ,theapp nil))
+  (let ((cb (callbackname theapp)))
+    (eval `(sb-alien::define-alien-callback
+             ,cb void ((a (* t)) (u (* t)))
+             ,@body))
+    `(progn
+       (setf ,theapp (gtk_application_new nil 0))
+       (g_signal_connect_data ,theapp "activate" ,cb nil nil 0))))
+
+; End of the demostuff file, which gets loaded by each demo script.
