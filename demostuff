@@ -27,7 +27,9 @@ and defines gapp, window, box, button, text, xtext, and xlabel.
             are the button and the new text.
 |#
 
-(load-shared-object "/usr/lib/x86_64-linux-gnu/libgtk-3.so.0")
+(require "asdf")
+
+(load-shared-object (uiop:run-program "ldconfig -p | grep libgtk-3.so.0 | tr ' ' '\\n' | grep /" :output '(:string :stripped t)))
 
 ; Gtk relies on being able to divide by zero.  To prevent it from
 ; being an error, the following line changes the floating point
