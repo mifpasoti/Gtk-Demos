@@ -1,5 +1,13 @@
-These demos demonstrate using Gtk directly from a higher level language.  None of the demos have any low level code in them.  There is no need for any makefiles, C compilers, or any other low level stuff.  There is probably no need to install Gtk, because it's probably already used by your Linux.  Any high level language can be used if it has the right features.  Using sbcl is just one example of how to do this.
+These demos demonstrate using Gtk directly from a higher level language.  None of the demos have any low level code in them.
+There is no need for any makefiles, C compilers, or any other low level stuff.  There is probably no need to install Gtk,
+because it's probably already used by your Linux.  Any high level language can be used if it has the right features.  Using
+sbcl is just one example of how to do this.
 
-When a demo script gets invoked, the code gets compiled into memory, by sbcl, with a very fast compiler, so there will be no object files, executable binaries, etc., unless those are desired.  The only requirement is to download or copy and paste the demos and demostuff and make each demo executable with "chmod +x demo".  Then run the demos with "./demo1 ; ./demo2 ; ./demo3".
+When a demo script gets invoked, the code gets compiled into memory, by sbcl, with a very fast compiler, so there will be
+no object files, executable binaries, etc., unless those are desired.  The only requirement is to download or copy and
+paste the demos and demostuff and make each demo executable with "chmod +x demo".  Then run the demos with
+"./demo1 ; ./demo2 ; ./demo3".
 
-If there are error messages about not finding sbcl, it might be necessary to install that, or to add it to the path.  Installing sbcl is easy, usually via the Linux distro.  In the rare circumstance that a particular Linux distro doesn't have sbcl, simply go to sbcl.org to download the sources or binary.
+If there are error messages about not finding sbcl, it might be necessary to install that, or to add it to the path.
+Installing sbcl is easy, usually via the Linux distro.  In the rare circumstance that a particular Linux distro doesn't
+have sbcl, simply go to sbcl.org to download the sources or binary.
