@@ -27,7 +27,7 @@ and defines gapp, window, box, button, text, xtext, and xlabel.
             are the button and the new text.
 |#
 
-(load-shared-object "/usr/lib/x86_64-linux-gnu/libgtk-3.so.0")
+(load-shared-object "libgtk-3.so.0")
 
 ; Gtk relies on being able to divide by zero.  To prevent it from
 ; being an error, the following line changes the floating point
