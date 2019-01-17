@@ -8,6 +8,6 @@ No need to compile anything.  The demos are scripts, ready to run.
 To run the demos:
 
 
-chmod +x demo1 demo2 demo3
+chmod +x demo[1-4]
 
-./demo1 ; ./demo2 ; ./demo3
+./demo4
