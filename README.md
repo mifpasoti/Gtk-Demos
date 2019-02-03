@@ -4,4 +4,5 @@ Brief demos of using Gtk user interface from a high level language without any C
 To run the demos:
 
 chmod +x demos
+
 ./demos
