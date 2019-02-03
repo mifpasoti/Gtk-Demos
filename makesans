@@ -1,0 +1,12 @@
+#!/usr/local/bin/sbcl --script
+
+; This script, makesans, uses sbcl to make sanssbcl, which can then
+; be copied to a Linux PC that doesn't have sbcl.
+
+(defun load-and-go ()
+  (load "demostuff")
+  (load "menu")
+  (loop as n from 1 to 9 do (load (format nil "demo~d" n)))
+  (menu))
+
+(save-lisp-and-die "sanssbcl" :executable t :toplevel #'load-and-go)

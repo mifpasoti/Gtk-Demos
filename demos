@@ -1,0 +1,16 @@
+#!/bin/bash
+./sanssbcl 2> >(sed '/^Backtrace/,$d;/^; /d;/^$/d')
+
+# This script, demos, uses sanssbcl to run the demos, with or without
+# sbcl installed.
+#
+# sanssbcl has to be present with this script and the demo scripts.
+# To make the demos executable do this:   chmod +x demos
+# To invoke the demos, do this:           ./demos
+#
+# If you want to make sanssbcl, it can be made on a Linux PC that
+# has sbcl installed by using the makesans script.  To make
+# sanssbcl there, do this:                chmod +x makesans
+#                                         ./makesans
+# Then you can copy sanssbcl to another Linux PC, whether it has
+# sbcl installed or not.

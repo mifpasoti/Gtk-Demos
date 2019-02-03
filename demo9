@@ -1,0 +1,7 @@
+; Refer to the demostuff file for definitions and descriptions.
+
+(defun demo9 ()
+  (window demo9 demos "de minimis" 300 150)
+  (box v deminimisbox9 demo9)
+  (text deminimismsg9 "This demo is not yet defined." deminimisbox9)
+  (gtk_widget_show_all demo9))

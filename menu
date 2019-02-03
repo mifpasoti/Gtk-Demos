@@ -1,0 +1,19 @@
+; Refer to the demostuff file for definitions and descriptions.
+
+(defun menu ()
+  (gapp demos
+    (window win demos "Demos Menu" 300 350)
+    (box h outerbox win)
+    (box v mainbox outerbox)
+    (mbutton dodemo1 "Four Button Demo" mainbox (demo1))
+    (mbutton dodemo2 "Numerals Demo"    mainbox (demo2))
+    (mbutton dodemo3 "Dates Demo"       mainbox (demo3))
+    (mbutton dodemo4 "de minimis"       mainbox (demo4))
+    (mbutton dodemo5 "de minimis"       mainbox (demo5))
+    (mbutton dodemo6 "de minimis"       mainbox (demo6))
+    (mbutton dodemo7 "de minimis"       mainbox (demo7))
+    (mbutton dodemo8 "de minimis"       mainbox (demo8))
+    (mbutton dodemo9 "de minimis"       mainbox (demo9))
+    (gtk_widget_show_all win))
+  (g_application_run demos 0 nil)
+  (g_object_unref demos))

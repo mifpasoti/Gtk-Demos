@@ -1,26 +1,18 @@
-#!/bin/bash
-sbcl --script << 'EOF' 2> >(sed '/^Backtrace/,$d;/^; /d')
-
 ; Refer to the demostuff file for definitions and descriptions.
 
-(load "demostuff")
-
-(defun main ()
-  (gapp demo2
-    (window win demo2 "Numerals Demo" 250 250)
-    (box h outerbox win)
-    (box v mainbox outerbox)
-    (box h numbox mainbox)
-    (button but1 (bnt 1) mainbox (xnum (bn 1)))
-    (button but2 (bnt 2) mainbox (xnum (bn 2)))
-    (button but3 (bnt 3) mainbox (xnum (bn 3)))
-    (button but4 (bnt 4) mainbox (xnum (bn 4)))
-    (button but5 (bnt 5) mainbox (xnum (bn 5)))
-    (button numeralbutton "Numerals" mainbox (togglenumar))
-    (text thenum "zero" numbox)
-    (gtk_widget_show_all win))
-  (g_application_run demo2 0 nil)
-  (g_object_unref demo2))
+(defun demo2 ()
+  (window demo2 demos "Numerals Demo" 250 250)
+  (box h outerbox2 demo2)
+  (box v mainbox2 outerbox2)
+  (box h numbox2 mainbox2)
+  (button b21 (bnt 1) mainbox2 (xnum (bn 1)))
+  (button b22 (bnt 2) mainbox2 (xnum (bn 2)))
+  (button b23 (bnt 3) mainbox2 (xnum (bn 3)))
+  (button b24 (bnt 4) mainbox2 (xnum (bn 4)))
+  (button b25 (bnt 5) mainbox2 (xnum (bn 5)))
+  (button numeralbutton2 "Numerals" mainbox2 (togglenumar))
+  (text num2 "zero" numbox2)
+  (gtk_widget_show_all demo2))
 
 (defparameter numar 'a)  ;  'r = I II II IV V.  'a = 1 2 3 4 5.
 
@@ -30,12 +22,8 @@ sbcl --script << 'EOF' 2> >(sed '/^Backtrace/,$d;/^; /d')
 
 (defun togglenumar ()
   (setq numar (if (eq numar 'a) 'r 'a))
-  (loop as button in (list but1 but2 but3 but4 but5)
+  (loop as button in (list b21 b22 b23 b24 b25)
         as n from 1 to 5
         do (xlabel button (bnt n))))
 
-(defun xnum (n) (xtext thenum (format nil "~R" n)))
-
-(main)
-
-EOF
+(defun xnum (n) (xtext num2 (format nil "~R" n)))

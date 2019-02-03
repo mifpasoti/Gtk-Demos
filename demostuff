@@ -40,60 +40,54 @@ and defines gapp, window, box, button, text, xtext, and xlabel.
 ; of them default to having it not be an error.
 (sb-int:set-floating-point-modes :traps '(:overflow :invalid))
 
-; gfunc makes a prototype for a gtk function.
-(defmacro gfunc (gtkname &rest types)
-  `(define-alien-routine ,gtkname ,(car types)
-     ,@(loop as argname in '(a b c d e f g h i j k l m)
-             as argtype in (cdr types)
-             collect (list argname argtype))))
 
-; gfunc above vs x_x etc below: gfunc is more general, but more
-; verbose.  x_x etc are for specific combinations of argument types.
+; Gtk function prototypes: each has a code, such as xx or vxs.  The
+; first letter of the code is the return value type, and the rest are
+; the argument types:
+; v = void
+; x = void*
+; i = int
+; l = long
+; f = float
+; d = double
+; s = c-string
+; y = vxx function
+(loop as (gfunc xx) in
+  '((gtk_application_window_new  xx)
+    (gtk_window_set_title        vxs)
+    (gtk_window_set_default_size vxii)
+    (gtk_button_box_new          xi)
+    (gtk_size_group_new          xi)
+    (gtk_bin_get_child           xx)
+    (gtk_label_set_xalign        vxf)
+    (gtk_container_add           vxx)
+    (gtk_label_new               xs)
+    (gtk_label_set_text          vxs)
+    (gtk_button_set_label        vxs)
+    (gtk_button_get_label        sx)
+    (gtk_button_new_with_label   xs)
+    (gtk_widget_destroy          xx)
+    (gtk_application_new         xsi)
+    (g_application_run           ixix)
+    (g_object_unref              vx)
+    (gtk_widget_show_all         vx)
+    (g_signal_connect_data       lxsyxxi))
+  as types = (loop as x across (string xx)
+                  collect (ecase (char-downcase x)
+                               (#\v 'void)
+                               (#\x '(* t))
+                               (#\i 'int)
+                               (#\l 'long)
+                               (#\f 'float)
+                               (#\d 'double)
+                               (#\s 'c-string)
+                               (#\y '(function void (* t) (* t)))))
+  as rv = (car types)
+  as args = (loop as argname in '(a b c d e f g h i j k l m)
+                  as argtype in (cdr types)
+                  collect (list argname argtype))
+  do (eval `(define-alien-routine ,gfunc ,rv ,@args)))
 
-; x_x, v_xs, etc use gfunc to make prototypes for gtk functions.
-; The name, such as x_x, includes an underline, to indicate it's
-; for a gtk function, because underlines are practically a
-; trademark of gtk function names.  The letter before the underline
-; is the return value type, and the other letters are the argument
-; types:
-; v for void
-; x for void*
-; s for c-string
-; i for int
-; In the following, the g argument is the name of the gtk function.
-(defmacro x_x   (g) `(gfunc ,g (* t) (* t)))
-(defmacro v_x   (g) `(gfunc ,g void (* t)))
-(defmacro v_xx  (g) `(gfunc ,g void (* t) (* t)))
-(defmacro x_i   (g) `(gfunc ,g (* t) int))
-(defmacro v_xii (g) `(gfunc ,g void (* t) int int))
-(defmacro v_xs  (g) `(gfunc ,g void (* t) c-string))
-(defmacro x_s   (g) `(gfunc ,g (* t) c-string))
-(defmacro s_x   (g) `(gfunc ,g c-string (* t)))
-(defmacro i_xix (g) `(gfunc ,g int (* t) int (* t)))
-(defmacro x_si  (g) `(gfunc ,g (* t) c-string int))
-(defmacro v_xf  (g) `(gfunc ,g void (* t) float))
-
-; These make the prototypes for the gtk functions.  See above.
-(x_x   gtk_application_window_new)
-(v_xs  gtk_window_set_title)
-(v_xii gtk_window_set_default_size)
-(x_i   gtk_button_box_new)
-(x_i   gtk_size_group_new)
-(x_x   gtk_bin_get_child)
-(v_xf  gtk_label_set_xalign)
-(v_xx  gtk_container_add)
-(x_s   gtk_label_new)
-(v_xs  gtk_label_set_text)
-(v_xs  gtk_button_set_label)
-(s_x   gtk_button_get_label)
-(x_s   gtk_button_new_with_label)
-(x_x   gtk_widget_destroy)
-(x_si  gtk_application_new)
-(i_xix g_application_run)
-(v_x   g_object_unref)
-(v_x   gtk_widget_show_all)
-(gfunc g_signal_connect_data long
-  (* t) c-string (function void (* t) (* t)) (* t) (* t) int)
 
 ; callbackname makes a callback name from an object name.
 ; The eval-when makes it usable during macro expansions.
@@ -131,7 +125,8 @@ and defines gapp, window, box, button, text, xtext, and xlabel.
   (eval `(defparameter ,abutton nil))
   (let ((cb (callbackname abutton)))
     (eval `(sb-alien::define-alien-callback
-             ,cb void ((a (* t)) (u (* t)))
+             ,cb void ((a (* t)) (b (* t)))
+             (declare (ignore a b))
              ,@body))
     `(progn
        (setf ,abutton (gtk_button_new_with_label ,buttonlabel))
@@ -172,7 +167,8 @@ and defines gapp, window, box, button, text, xtext, and xlabel.
   (eval `(defparameter ,theapp nil))
   (let ((cb (callbackname theapp)))
     (eval `(sb-alien::define-alien-callback
-             ,cb void ((a (* t)) (u (* t)))
+             ,cb void ((a (* t)) (b (* t)))
+             (declare (ignore a b))
              ,@body))
     `(progn
        (setf ,theapp (gtk_application_new nil 0))

@@ -1,25 +1,7 @@
-#!/bin/bash
-sbcl --script << 'EOF' 2> >(sed '/^Backtrace/,$d;/^; /d')
-
 ; Refer to the demostuff file for definitions and descriptions.
 
-(load "demostuff")
-
-(defun main ()
-  (gapp demo4
-    (window win demo4 "Demos Menu" 300 200)
-    (box h outerbox win)
-    (box v mainbox outerbox)
-    (mbutton button1 "Four Button Demo" mainbox (dodemo 1))
-    (mbutton button2 "Numerals Demo"    mainbox (dodemo 2))
-    (mbutton button3 "Dates Demo"       mainbox (dodemo 3))
-    (gtk_widget_show_all win))
-  (g_application_run demo4 0 nil)
-  (g_object_unref demo4))
-
-(defun dodemo (which)
-  (sb-ext:run-program (format nil "demo~d" which) nil))
-
-(main)
-
-EOF
+(defun demo4 ()
+  (window demo4 demos "de minimis" 300 150)
+  (box v deminimisbox4 demo4)
+  (text deminimismsg4 "This demo is not yet defined." deminimisbox4)
+  (gtk_widget_show_all demo4))
