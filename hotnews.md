@@ -18,7 +18,9 @@ The most recent version of Gtk-Demos is an update of the January 17 version.  Th
 The demos are here:   https://github.com/mifpasoti/Gtk-Demos
 
 
-Info about sanssbcl:  If sbcl is not installed, and you don't want to install it, you can use sanssbcl.  It goes in the same directory with the demo scripts.  If sbcl is installed, you can make sanssbcl by running the makesans script.  The makesans script is short and easy to understand.  And sanssbcl is easy to understand, by understanding makesans.
+Info about sanssbcl
+
+With the sanssbcl file, the demo scripts can be run with or without sbcl being installed.  If sbcl is installed, you can make sanssbcl by running the makesans script.  The makesans script is short and easy to understand.  And sanssbcl is easy to understand, by understanding makesans.  To make sanssbcl, replacing any existing sanssbcl, use the command:  ./makesans
 
 
 The January 17 version of the demos had the following changes from the original version:
@@ -31,6 +33,10 @@ The January 17 version of the demos had the following changes from the original 
 
 
 Introduction
+
+To run the demos, use the command:  ./demos
+
+To make changes to the demos, use any text editor, then run the demos again.
 
 These demos demonstrate using Gtk directly from a higher level language.  None of the demos have any low level code in them.  There is no need for any makefiles, C compilers, or any other low level stuff.  There is probably no need to install Gtk, because it's probably already used by your Linux.
 
