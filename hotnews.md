@@ -1,6 +1,6 @@
 See "Introduction" below.
 
-The most recent version of the Gtk Demos scripts is an update of the January 17 version.  The following changes have been made since January 17:
+The most recent version of Gtk-Demos is an update of the January 17 version.  The following changes have been made since January 17:
 
 1. It's no longer necessary to install sbcl to run the scripts.  They're invoked by a new script named demos.  A file named sanssbcl has to be with the scripts.  See "Info about sanssbcl" below.
 
