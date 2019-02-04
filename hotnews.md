@@ -21,11 +21,11 @@ The demos are here:   https://github.com/mifpasoti/Gtk-Demos
 
 Info about sanssbcl:
 
-If sbcl is not installed, and you don't want to install it, you can use sanssbcl.  It goes in the same directory with the demo scripts.
+  If sbcl is not installed, and you don't want to install it, you can use sanssbcl.  It goes in the same directory with the demo scripts.
 
-If sbcl is installed, you can make sanssbcl by running the makesans script.
+  If sbcl is installed, you can make sanssbcl by running the makesans script.
 
-The makesans script is short and easy to understand.  And sanssbcl is easy to understand, by understanding makesans.
+  The makesans script is short and easy to understand.  And sanssbcl is easy to understand, by understanding makesans.
 
 
 The January 17 version of the demos had the following changes from the original version:
