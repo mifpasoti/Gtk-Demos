@@ -3,17 +3,17 @@ See "Introduction" below.
 The most recent version of the Gtk Demos scripts is an update of the January 17 version.  The following changes have been made since January 17:
 
 
-It's no longer necessary to install sbcl to run the scripts.  They're invoked by a new script named demos.  A file named sanssbcl has to be with the scripts.  See "Info about sanssbcl" below.
+1. It's no longer necessary to install sbcl to run the scripts.  They're invoked by a new script named demos.  A file named sanssbcl has to be with the scripts.  See "Info about sanssbcl" below.
 
-The demo scripts have minor changes whose purpose is for them to be invoked differently than before.  To invoke them now, run the demos script, with the command: ./demos
+2. The demo scripts have minor changes whose purpose is for them to be invoked differently than before.  To invoke them now, run the demos script, with the command: ./demos
 
-Some of the object names in the demos have been changed to make them unique, because all the demos now get loaded into one name space.
+3. Some of the object names in the demos have been changed to make them unique, because all the demos now get loaded into one name space.
 
-The menu was demo4, but is now named menu.  All the demos have been combined into one Gtk application, which is established by the gapp in menu.
+4. The menu was demo4, but is now named menu.  All the demos have been combined into one Gtk application, which is established by the gapp in menu.
 
-Six de minimis demos have been added, so you can easily make your own demos by editing de minimis demos.  The de minimis demos are demo4 through demo9.  You should also edit the menu to give your demos appropriate names.  The button name doesn't matter, and only has to be unique.  The label text is what will show as the button label.  Also change the window title in your demo, to no longer indicate it's a de minimis demo.
+5. Six de minimis demos have been added, so you can easily make your own demos by editing de minimis demos.  The de minimis demos are demo4 through demo9.  You should also edit the menu to give your demos appropriate names.  The button name doesn't matter, and only has to be unique.  The label text is what will show as the button label.  Also change the window title in your demo, to no longer indicate it's a de minimis demo.
 
-The syntax of the Gtk function prototypes has been changed again, to make them shorter and neater.  If you need more Gtk functions than are presently in the list, simply add them to the list, using the same syntax.
+6. The syntax of the Gtk function prototypes has been changed again, to make them shorter and neater.  If you need more Gtk functions than are presently in the list, simply add them to the list, using the same syntax.
 
 
 The demos are here:   https://github.com/mifpasoti/Gtk-Demos
@@ -30,11 +30,11 @@ The makesans script is short and easy to understand.  And sanssbcl is easy to un
 
 The January 17 version of the demos had the following changes from the original version:
 
-Added a menu of the other demos.  It was demo4 in the January 17 version, but is now named menu.
+1. Added a menu of the other demos.  It was demo4 in the January 17 version, but is now named menu.
 
-The syntax for the list of Gtk function prototypes in demostuff was changed, but has been changed again.
+2. The syntax for the list of Gtk function prototypes in demostuff was changed, but has been changed again.
 
-Loading the Gtk shared object file by name only, without specifying the path, but using SBCL's built-in path logic, to be compatible with more Linux distros.
+3. Loading the Gtk shared object file by name only, without specifying the path, but using SBCL's built-in path logic, to be compatible with more Linux distros.
 
 
 Introduction
