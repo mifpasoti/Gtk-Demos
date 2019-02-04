@@ -2,7 +2,6 @@ See "Introduction" below.
 
 The most recent version of the Gtk Demos scripts is an update of the January 17 version.  The following changes have been made since January 17:
 
-
 1. It's no longer necessary to install sbcl to run the scripts.  They're invoked by a new script named demos.  A file named sanssbcl has to be with the scripts.  See "Info about sanssbcl" below.
 
 2. The demo scripts have minor changes whose purpose is for them to be invoked differently than before.  To invoke them now, run the demos script, with the command: ./demos
@@ -19,13 +18,7 @@ The most recent version of the Gtk Demos scripts is an update of the January 17 
 The demos are here:   https://github.com/mifpasoti/Gtk-Demos
 
 
-Info about sanssbcl:
-
-  If sbcl is not installed, and you don't want to install it, you can use sanssbcl.  It goes in the same directory with the demo scripts.
-
-  If sbcl is installed, you can make sanssbcl by running the makesans script.
-
-  The makesans script is short and easy to understand.  And sanssbcl is easy to understand, by understanding makesans.
+Info about sanssbcl:  If sbcl is not installed, and you don't want to install it, you can use sanssbcl.  It goes in the same directory with the demo scripts.  If sbcl is installed, you can make sanssbcl by running the makesans script.  The makesans script is short and easy to understand.  And sanssbcl is easy to understand, by understanding makesans.
 
 
 The January 17 version of the demos had the following changes from the original version:
@@ -39,10 +32,8 @@ The January 17 version of the demos had the following changes from the original 
 
 Introduction
 
-These demos demonstrate using Gtk directly from a higher level language.  None of the demos have any low level code in them.  There is no need for
-any makefiles, C compilers, or any other low level stuff.  There is probably no need to install Gtk, because it's probably already used by your Linux.
+These demos demonstrate using Gtk directly from a higher level language.  None of the demos have any low level code in them.  There is no need for any makefiles, C compilers, or any other low level stuff.  There is probably no need to install Gtk, because it's probably already used by your Linux.
 
 You don't need to install sbcl if you have the sanssbcl file.  But, if you want to install sbcl, you can usually install it via the Linux distro.  In the rare circumstance that a particular Linux distro doesn't have sbcl, you could install, via sbcl.org, either a binary version, or the sources to compile.
 
-To use a different high level language for these demos, it is of course necessary to edit them to change the language.  But they aren't very long
-and that might not take very long.  It's strongly advised to run the present demos first, and make some minor changes to them, to see the differences, to make sure to understand how they work, before starting to change them to a different language.
+To use a different high level language for these demos, it is of course necessary to edit them to change the language.  But they aren't very long and that might not take very long.  It's strongly advised to run the present demos first, and make some minor changes to them, to see the differences, to make sure to understand how they work, before starting to change them to a different language.
