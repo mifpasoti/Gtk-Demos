@@ -8,7 +8,7 @@
     (mbutton dodemo1 "Four Button Demo" mainbox (demo1))
     (mbutton dodemo2 "Numerals Demo"    mainbox (demo2))
     (mbutton dodemo3 "Dates Demo"       mainbox (demo3))
-    (mbutton dodemo4 "de minimis"       mainbox (demo4))
+    (mbutton dodemo4 "Gtk Version"      mainbox (demo4))
     (mbutton dodemo5 "de minimis"       mainbox (demo5))
     (mbutton dodemo6 "de minimis"       mainbox (demo6))
     (mbutton dodemo7 "de minimis"       mainbox (demo7))

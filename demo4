@@ -1,7 +1,7 @@
 ; Refer to the demostuff file for definitions and descriptions.
 
 (defun demo4 ()
-  (window demo4 demos "de minimis" 300 150)
+  (window demo4 demos "Gtk Version" 300 150)
   (box v deminimisbox4 demo4)
-  (text deminimismsg4 "This demo is not yet defined." deminimisbox4)
+  (text deminimismsg4 (format nil "~&Gtk version ~a~%" (gver)) deminimisbox4)
   (gtk_widget_show_all demo4))

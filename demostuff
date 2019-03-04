@@ -54,12 +54,15 @@ and defines gapp, window, box, button, text, xtext, and xlabel.
 ; y = vxx function
 (loop as (gfunc xx) in
   '((gtk_application_window_new  xx)
+    (gtk_get_major_version       i)
+    (gtk_get_minor_version       i)
+    (gtk_get_micro_version       i)
     (gtk_window_set_title        vxs)
     (gtk_window_set_default_size vxii)
     (gtk_button_box_new          xi)
     (gtk_size_group_new          xi)
     (gtk_bin_get_child           xx)
-    (gtk_label_set_xalign        vxf)
+    (gtk_widget_set_halign       vxi)
     (gtk_container_add           vxx)
     (gtk_label_new               xs)
     (gtk_label_set_text          vxs)
@@ -140,7 +143,7 @@ and defines gapp, window, box, button, text, xtext, and xlabel.
   `(progn
      (button ,abutton ,buttonlabel ,placement ,@body)
      (let ((thelabel (gtk_bin_get_child ,abutton)))
-       (gtk_label_set_xalign thelabel 0.0))))
+       (gtk_widget_set_halign thelabel 1))))
 
 ; text establishes a Gtk "label" object which is actually a text
 ; display object.  The arguments are, what text object to
@@ -159,6 +162,13 @@ and defines gapp, window, box, button, text, xtext, and xlabel.
 ; xlabel changes the text label on a button.
 (defun xlabel (button newtext)
   (gtk_button_set_label button newtext))
+
+; gver gets the Gtk version.
+(defun gver ()
+  (format nil "~d.~d.~d"
+    (gtk_get_major_version)
+    (gtk_get_minor_version)
+    (gtk_get_micro_version)))
 
 ; gapp establishes a Gtk application.  The arguments are,
 ; the name of the application object, and the code to be
